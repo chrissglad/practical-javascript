@@ -9,14 +9,27 @@
     <script>
       //store the items
       var todos = ['item 1', 'iten 2', 'item 3'];
+      
       //show items
       console.log(todos);
+      
       //add item
-      todos.push('item 4');
+      function addTodo(todo) {
+        todos.push(todo);
+        console.log(todos);
+      }
+      
       //edit item
-      todos[0] = 'item 1 updated';
+      function editTodo(position, newValue) {
+        todos[position] = newValue;
+        console.log(todos);
+      }
+      
       //remove items
-      todos.splice(0,1);
+      function removeTodo(position) {
+        todos.splice(position, 1);
+        console.log(todos);
+      }
     </script>
   </body>
 </html>

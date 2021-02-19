@@ -1,3 +1,8 @@
+Todos App - Version 2 (Making things more modular)
+1-[x] It should have a function to add a todo
+2-[x] It should have a function to edit a todo
+3-[x] It should have a function to remove a todo
+
 Todos App - Version 1
 1-[x] It should have a way to store items
 2-[x] It should have a way to display the items
