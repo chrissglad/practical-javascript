@@ -1,3 +1,6 @@
+Todo App - Version 3 (Add persistence)
+1-[x] It should have a way to persist todos
+
 Todos App - Version 2 (Making things more modular)
 1-[x] It should have a function to add a todo
 2-[x] It should have a function to edit a todo
