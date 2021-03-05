@@ -21,16 +21,14 @@
 
       // get todos
       function getTodos() {
-        if (storageSupport) {
-          var todos;
-          var lsItems = localStorage.getItem("todos");
-          if (lsItems === null) {
-            todos = [];
-          } else {
-            todos = JSON.parse(lsItems);
-          }
-          return todos;
+        var todos;
+        var lsItems = localStorage.getItem("todos");
+        if (lsItems === null) {
+          todos = [];
+        } else {
+          todos = JSON.parse(lsItems);
         }
+        return todos;
       }
 
       //add item
