@@ -7,28 +7,66 @@
 
   <body>
     <script>
-      //store the items
-      var todos = ['item 1', 'iten 2', 'item 3'];
-      
+      var func = "function";
+
+      // check storage support
+      var storageSupport =
+        !!localStorage &&
+        typeof localStorage.getItem === func &&
+        typeof localStorage.setItem === func &&
+        typeof localStorage.removeItem === func;
+
       //show items
-      console.log(todos);
-      
+      console.log(getTodos());
+
+      // get todos
+      function getTodos() {
+        var todos;
+        var lsItems = localStorage.getItem("todos");
+        if (lsItems === null) {
+          todos = [];
+        } else {
+          todos = JSON.parse(lsItems);
+        }
+        return todos;
+      }
+
       //add item
       function addTodo(todo) {
-        todos.push(todo);
-        console.log(todos);
+        if (storageSupport) {
+          var todos = getTodos();
+          todos.push(todo);
+          console.log(todos);
+          return localStorage.setItem("todos", JSON.stringify(todos));
+        }
       }
-      
+
       //edit item
       function editTodo(position, newValue) {
-        todos[position] = newValue;
-        console.log(todos);
+        if (storageSupport) {
+          var todos = getTodos();
+          todos[position] = newValue;
+          console.log(todos);
+          return localStorage.setItem("todos", JSON.stringify(todos));
+        }
       }
-      
-      //remove items
+
+      //remove item
       function removeTodo(position) {
-        todos.splice(position, 1);
-        console.log(todos);
+        if (storageSupport) {
+          var todos = getTodos();
+          todos.splice(position, 1);
+          console.log(todos);
+          return localStorage.setItem("todos", JSON.stringify(todos));
+        }
+      }
+
+      // clear items
+      function clearTodos() {
+        if (storageSupport) {
+          if (localStorage.getItem("todos") !== null)
+            return localStorage.removeItem("todos");
+        }
       }
     </script>
   </body>
