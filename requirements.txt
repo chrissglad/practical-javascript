@@ -3,7 +3,9 @@ Todo App - Version 3 (Add persistence & Modular)
 2-[x] Initialize todos variable with an object
 3-[x] Add function should add object
 4-[x] Edit function should edit object
-5-[x] Add isCompleted property to a todo object
+5-[x] In todos add property for todo text and isCompleted
+5-[x] Add function should add a todo text and set isComplete initial value to false
+6-[x] Edit function should update only todo text property
 
 Todos App - Version 2 (Making things more modular)
 1-[x] It should have a function to add a todo
