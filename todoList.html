@@ -16,56 +16,58 @@
         typeof localStorage.setItem === func &&
         typeof localStorage.removeItem === func;
 
-      //show items
-      console.log(getTodos());
+      //show items (testing)
+      console.log(getTodos().todos);
 
       // get todos
       function getTodos() {
-        var todos;
-        var lsItems = localStorage.getItem("todos");
+        var todoMap;
+        var lsItems = localStorage.getItem("todoMap");
         if (lsItems === null) {
-          todos = [];
+          todoMap = {
+            todos: [],
+          };
         } else {
-          todos = JSON.parse(lsItems);
+          todoMap = JSON.parse(lsItems);
         }
-        return todos;
+        return todoMap;
       }
 
       //add item
       function addTodo(todo) {
         if (storageSupport) {
-          var todos = getTodos();
+          var { todos } = getTodos();
           todos.push(todo);
           console.log(todos);
-          return localStorage.setItem("todos", JSON.stringify(todos));
+          return localStorage.setItem("todoMap", JSON.stringify({ todos }));
         }
       }
 
       //edit item
       function editTodo(position, newValue) {
         if (storageSupport) {
-          var todos = getTodos();
+          var { todos } = getTodos();
           todos[position] = newValue;
           console.log(todos);
-          return localStorage.setItem("todos", JSON.stringify(todos));
+          return localStorage.setItem("todoMap", JSON.stringify({ todos }));
         }
       }
 
       //remove item
       function removeTodo(position) {
         if (storageSupport) {
-          var todos = getTodos();
+          var { todos } = getTodos();
           todos.splice(position, 1);
           console.log(todos);
-          return localStorage.setItem("todos", JSON.stringify(todos));
+          return localStorage.setItem("todoMap", JSON.stringify({ todos }));
         }
       }
 
       // clear items
       function clearTodos() {
         if (storageSupport) {
-          if (localStorage.getItem("todos") !== null)
-            return localStorage.removeItem("todos");
+          if (localStorage.getItem("todoMap") !== null)
+            return localStorage.removeItem("todoMap");
         }
       }
     </script>

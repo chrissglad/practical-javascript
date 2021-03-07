@@ -1,8 +1,8 @@
 Todo App - Version 3 (Add persistence & Modular)
 1-[x] It should have a way to persist todos
-2-[] Initialize todos variable with an object
-3-[] Add function should add object
-4-[] Edit function should edit object
+2-[x] Initialize todos variable with an object
+3-[x] Add function should add object
+4-[x] Edit function should edit object
 
 Todos App - Version 2 (Making things more modular)
 1-[x] It should have a function to add a todo
