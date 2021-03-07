@@ -34,20 +34,20 @@
       }
 
       //add item
-      function addTodo(todo) {
+      function addTodo(initialTodoText) {
         if (storageSupport) {
           var { todos } = getTodos();
-          todos.push(todo);
+          todos.push({todoText: initialTodoText, isCompleted: false});
           console.log(todos);
           return saveTodosInLocalStorage(todos);
         }
       }
 
       //edit item
-      function editTodo(position, newValue) {
+      function editTodo(position, newTodoText) {
         if (storageSupport) {
           var { todos } = getTodos();
-          todos[position] = newValue;
+          todos[position].todoText = newTodoText;
           console.log(todos);
           return saveTodosInLocalStorage(todos);
         }
