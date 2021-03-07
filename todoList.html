@@ -37,7 +37,7 @@
           var todos = getTodos();
           todos.push(todo);
           console.log(todos);
-          return localStorage.setItem("todos", JSON.stringify(todos));
+          return saveTodosInLocalStorage(todos);
         }
       }
 
@@ -47,7 +47,7 @@
           var todos = getTodos();
           todos[position] = newValue;
           console.log(todos);
-          return localStorage.setItem("todos", JSON.stringify(todos));
+          return saveTodosInLocalStorage(todos);
         }
       }
 
@@ -57,7 +57,7 @@
           var todos = getTodos();
           todos.splice(position, 1);
           console.log(todos);
-          return localStorage.setItem("todos", JSON.stringify(todos));
+          return saveTodosInLocalStorage(todos);
         }
       }
 
@@ -67,6 +67,11 @@
           if (localStorage.getItem("todos") !== null)
             return localStorage.removeItem("todos");
         }
+      }
+
+      // save todos to localstorage
+      function saveTodosInLocalStorage(todos) {
+        window.localStorage.setItem("todos", JSON.stringify(todos));
       }
     </script>
   </body>
