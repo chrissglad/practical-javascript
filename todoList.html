@@ -39,7 +39,7 @@
           var { todos } = getTodos();
           todos.push(todo);
           console.log(todos);
-          return localStorage.setItem("todoMap", JSON.stringify({ todos }));
+          return saveTodosInLocalStorage(todos);
         }
       }
 
@@ -49,7 +49,7 @@
           var { todos } = getTodos();
           todos[position] = newValue;
           console.log(todos);
-          return localStorage.setItem("todoMap", JSON.stringify({ todos }));
+          return saveTodosInLocalStorage(todos);
         }
       }
 
@@ -59,7 +59,7 @@
           var { todos } = getTodos();
           todos.splice(position, 1);
           console.log(todos);
-          return localStorage.setItem("todoMap", JSON.stringify({ todos }));
+          return saveTodosInLocalStorage(todos);
         }
       }
 
@@ -69,6 +69,11 @@
           if (localStorage.getItem("todoMap") !== null)
             return localStorage.removeItem("todoMap");
         }
+      }
+
+      // save todos to localstorage
+      function saveTodosInLocalStorage(todos) {
+        localStorage.setItem("todoMap", JSON.stringify({todos}));
       }
     </script>
   </body>
