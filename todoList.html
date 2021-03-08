@@ -37,7 +37,12 @@
       function addTodo(initialTodoText) {
         if (storageSupport) {
           var { todos } = getTodos();
-          todos.push({todoText: initialTodoText, isCompleted: false});
+          todos.push({
+            todoText: initialTodoText,
+            isCompleted: false,
+            createdAt: new Date().toLocaleString(),
+            editedAt: new Date().toLocaleString(),
+          });
           console.log(todos);
           return saveTodosInLocalStorage(todos);
         }
@@ -48,6 +53,7 @@
         if (storageSupport) {
           var { todos } = getTodos();
           todos[position].todoText = newTodoText;
+          todos[position].editedAt = new Date().toLocaleString();
           console.log(todos);
           return saveTodosInLocalStorage(todos);
         }
@@ -73,7 +79,7 @@
 
       // save todos to localstorage
       function saveTodosInLocalStorage(todos) {
-        localStorage.setItem("todoMap", JSON.stringify({todos}));
+        localStorage.setItem("todoMap", JSON.stringify({ todos }));
       }
     </script>
   </body>
