@@ -34,20 +34,27 @@
       }
 
       //add item
-      function addTodo(todo) {
+      function addTodo(initialTodoText) {
         if (storageSupport) {
           var { todos } = getTodos();
-          todos.push(todo);
+          todos.push({
+            todoText: initialTodoText,
+            isCompleted: false,
+            createdAt: new Date().toLocaleString(),
+            editedAt: new Date().toLocaleString(),
+          });
           console.log(todos);
           return saveTodosInLocalStorage(todos);
         }
       }
 
       //edit item
-      function editTodo(position, newValue) {
+      function editTodo(position, newTodoText) {
         if (storageSupport) {
           var { todos } = getTodos();
-          todos[position] = newValue;
+          var todo = todos[position]
+          todo.todoText = newTodoText;
+          todo.editedAt = new Date().toLocaleString();
           console.log(todos);
           return saveTodosInLocalStorage(todos);
         }
@@ -73,7 +80,7 @@
 
       // save todos to localstorage
       function saveTodosInLocalStorage(todos) {
-        localStorage.setItem("todoMap", JSON.stringify({todos}));
+        localStorage.setItem("todoMap", JSON.stringify({ todos }));
       }
     </script>
   </body>
