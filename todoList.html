@@ -33,34 +33,35 @@
           if (this.useLocalStorage) {
             let { todos } = this.todoMap;
             let newTodo = {
-              todoText: initialTodoText,
+              id: uuidv4(),
+              text: initialTodoText,
               isCompleted: false,
-              createdAt: new Date().toLocaleString(),
-              updatedAt: new Date().toLocaleString(),
+              createdAt: Date.now(),
+              updatedAt: Date.now(),
             }
-            todos.push(todo)
+            todos.push(newTodo)    
             console.log(todos);
             return this.saveTodosInLocalStorage(todos);
           }
         }
 
         //edit item
-        editTodo(position, newTodoText) {
+        editTodo(id, newTodoText) {
           if (this.useLocalStorage) {
             let { todos } = this.todoMap;
-            let todo = todos[position];
-            todo.todoText = newTodoText;
-            todo.updatedAt = new Date().toLocaleString();
+            let todoIndex = todos.findIndex(todo => todo.id === id)
+            todos[todoIndex] = Object.assign({}, todos[todoIndex], {text: newTodoText, updatedAt: Date.now()})
             console.log(todos);
             return this.saveTodosInLocalStorage(todos);
           }
         }
 
         //remove item
-        removeTodo(position) {
+        removeTodo(id) {
           if (this.useLocalStorage) {
             let { todos } = this.todoMap;
-            todos.splice(position, 1);
+            let todoIndex = todos.findIndex(todo => todo.id === id)
+            todos.splice(todoIndex, 1)
             console.log(todos);
             return this.saveTodosInLocalStorage(todos);
           }
