@@ -6,6 +6,7 @@
   </head>
 
   <body>
+    <script src="uuid.js"></script>
     <script>
       const LOCAL_STORAGE_KEY = "pj_todos";
 
@@ -30,7 +31,7 @@
         addTodo(initialTodoText) {
           if (this.useLocalStorage) {
             let { todos } = this.todoMap;
-            let todo = {
+            let newTodo = {
               todoText: initialTodoText,
               isCompleted: false,
               createdAt: new Date().toLocaleString(),
