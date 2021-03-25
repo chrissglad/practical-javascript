@@ -6,82 +6,84 @@
   </head>
 
   <body>
-    <script>
-      var func = "function";
+    <script src="babel-standalone.js"></script>
+    <script src="uuid.js"></script>
+    <script type="text/babel">
+      const LOCAL_STORAGE_KEY = "pj_todos";
 
-      // check storage support
-      var storageSupport =
-        !!localStorage &&
-        typeof localStorage.getItem === func &&
-        typeof localStorage.setItem === func &&
-        typeof localStorage.removeItem === func;
+      class PJTodos {
+        constructor() {
+          this.useLocalStorage = typeof localStorage !== undefined;
 
-      //show items (testing)
-      console.log(getTodos().todos);
-
-      // get todos
-      function getTodos() {
-        var todoMap;
-        var lsItems = localStorage.getItem("todoMap");
-        if (lsItems === null) {
-          todoMap = {
-            todos: [],
-          };
-        } else {
-          todoMap = JSON.parse(lsItems);
+          if (this.useLocalStorage) {
+            let lsItems = localStorage.getItem(LOCAL_STORAGE_KEY);
+            if (lsItems === null) {
+              this.todoMap = {
+                todos: [],
+              };
+            } else {
+              this.todoMap = JSON.parse(lsItems);
+            }
+            console.log(this.todoMap.todos);
+          }
         }
-        return todoMap;
-      }
 
-      //add item
-      function addTodo(initialTodoText) {
-        if (storageSupport) {
-          var { todos } = getTodos();
-          todos.push({
-            todoText: initialTodoText,
-            isCompleted: false,
-            createdAt: new Date().toLocaleString(),
-            editedAt: new Date().toLocaleString(),
-          });
-          console.log(todos);
-          return saveTodosInLocalStorage(todos);
+        //add item
+        addTodo(initialTodoText) {
+          if (this.useLocalStorage) {
+            let { todos } = this.todoMap;
+            let newTodo = {
+              id: uuidv4(),
+              text: initialTodoText,
+              isCompleted: false,
+              createdAt: Date.now(),
+              updatedAt: Date.now(),
+            }
+            todos.push(newTodo)    
+            console.log(todos);
+            return this.saveTodosInLocalStorage(todos);
+          }
+        }
+
+        //edit item
+        editTodo(id, newTodoText) {
+          if (this.useLocalStorage) {
+            let { todos } = this.todoMap;
+            let todoIndex = todos.findIndex(todo => todo.id === id)
+            todos[todoIndex] = Object.assign({}, todos[todoIndex], {text: newTodoText, updatedAt: Date.now()})
+            console.log(todos);
+            return this.saveTodosInLocalStorage(todos);
+          }
+        }
+
+        //remove item
+        removeTodo(id) {
+          if (this.useLocalStorage) {
+            let { todos } = this.todoMap;
+            let todoIndex = todos.findIndex(todo => todo.id === id)
+            todos.splice(todoIndex, 1)
+            console.log(todos);
+            return this.saveTodosInLocalStorage(todos);
+          }
+        }
+
+        // clear items
+        clearTodos() {
+          if (this.useLocalStorage) {
+            if (localStorage.getItem(LOCAL_STORAGE_KEY) !== null)
+              return localStorage.removeItem(LOCAL_STORAGE_KEY);
+          }
+        }
+
+        // save todos to localstorage
+        saveTodosInLocalStorage(todos) {
+          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ todos }));
         }
       }
 
-      //edit item
-      function editTodo(position, newTodoText) {
-        if (storageSupport) {
-          var { todos } = getTodos();
-          var todo = todos[position]
-          todo.todoText = newTodoText;
-          todo.editedAt = new Date().toLocaleString();
-          console.log(todos);
-          return saveTodosInLocalStorage(todos);
-        }
-      }
+      const pjTodos = new PJTodos()
 
-      //remove item
-      function removeTodo(position) {
-        if (storageSupport) {
-          var { todos } = getTodos();
-          todos.splice(position, 1);
-          console.log(todos);
-          return saveTodosInLocalStorage(todos);
-        }
-      }
-
-      // clear items
-      function clearTodos() {
-        if (storageSupport) {
-          if (localStorage.getItem("todoMap") !== null)
-            return localStorage.removeItem("todoMap");
-        }
-      }
-
-      // save todos to localstorage
-      function saveTodosInLocalStorage(todos) {
-        localStorage.setItem("todoMap", JSON.stringify({ todos }));
-      }
+      // pjTodos.addTodo('hello world')
     </script>
   </body>
 </html>
